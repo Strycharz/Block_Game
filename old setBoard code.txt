@@ -1,0 +1,136 @@
+//    wyczysc_Plansze();
+//
+//    if(poziom == 1){
+//    plansza[7][1].czyGracz = true;
+//
+//    plansza[5][2].czyMina = true;
+//    plansza[6][2].czyMina = true;
+//    plansza[6][3].czyMina = true;
+//
+//    plansza[3][7].czyUstawione = true;
+//    plansza[4][7].czyUstawione = true;
+//    plansza[5][7].czyUstawione = true;
+////I
+//    plansza[4][0].czySciana = true;
+//    plansza[5][0].czySciana = true;
+//    plansza[6][0].czySciana = true;
+//    plansza[7][0].czySciana = true;
+//    plansza[8][0].czySciana = true;
+////II
+//    plansza[0][1].czySciana = true;
+//    plansza[1][1].czySciana = true;
+//    plansza[2][1].czySciana = true;
+//    plansza[3][1].czySciana = true;
+//    plansza[4][1].czySciana = true;
+//    plansza[8][1].czySciana = true;
+////III
+//    plansza[0][2].czySciana = true;
+//    plansza[3][2].czySciana = true;
+//    plansza[4][2].czySciana = true;
+//    plansza[8][2].czySciana = true;
+////IV
+//    plansza[0][3].czySciana = true;
+//    plansza[8][3].czySciana = true;
+//
+////V
+//    plansza[0][4].czySciana = true;
+//    plansza[4][4].czySciana = true;
+//    plansza[5][4].czySciana = true;
+//    plansza[6][4].czySciana = true;
+//    plansza[7][4].czySciana = true;
+//    plansza[8][4].czySciana = true;
+//
+////VI
+//    plansza[0][5].czySciana = true;
+//    plansza[1][5].czySciana = true;
+//    plansza[2][5].czySciana = true;
+//    plansza[4][5].czySciana = true;
+//
+//    plansza[1][6].czySciana = true;
+//    plansza[4][6].czySciana = true;
+//    plansza[5][6].czySciana = true;
+//    plansza[6][6].czySciana = true;
+//
+//    plansza[1][7].czySciana = true;
+//    plansza[6][7].czySciana = true;
+//
+//    plansza[1][8].czySciana = true;
+//    plansza[2][8].czySciana = true;
+//    plansza[3][8].czySciana = true;
+//    plansza[4][8].czySciana = true;
+//    plansza[5][8].czySciana = true;
+//    plansza[6][8].czySciana = true;
+//
+//}
+//
+//    if(poziom == 2){
+//        plansza[2][2].czyMina = true;
+//        plansza[4][3].czyMina = true;
+//        plansza[3][5].czyMina = true;
+//
+//        plansza[6][4].czyUstawione = true;
+//        plansza[6][5].czyUstawione = true;
+//        plansza[6][6].czyUstawione = true;
+//
+//        plansza[6][3].czyGracz = true;
+//
+//        //I
+//    plansza[0][0].czySciana = true;
+//    plansza[1][0].czySciana = true;
+//    plansza[2][0].czySciana = true;
+//    plansza[3][0].czySciana = true;
+//    plansza[4][0].czySciana = true;
+//        //II
+//     plansza[0][1].czySciana = true;
+//     plansza[4][1].czySciana = true;
+//     plansza[5][1].czySciana = true;
+//     plansza[6][1].czySciana = true;
+//     plansza[7][1].czySciana = true;
+//        //III
+//     plansza[0][2].czySciana = true;
+//     plansza[4][2].czySciana = true;
+//     plansza[7][2].czySciana = true;
+//        //IV
+//     plansza[0][3].czySciana = true;
+//     plansza[7][3].czySciana = true;
+//        //V
+//     plansza[0][4].czySciana = true;
+//     plansza[1][4].czySciana = true;
+//     plansza[2][4].czySciana = true;
+//     plansza[3][4].czySciana = true;
+//     plansza[7][4].czySciana = true;
+//        //VI
+//      plansza[1][5].czySciana = true;
+//      plansza[5][5].czySciana = true;
+//      plansza[7][5].czySciana = true;
+//        //VII
+//      plansza[1][6].czySciana = true;
+//      plansza[3][6].czySciana = true;
+//      plansza[5][6].czySciana = true;
+//      plansza[7][6].czySciana = true;
+//        //VIII
+//      plansza[1][7].czySciana = true;
+//      plansza[5][7].czySciana = true;
+//      plansza[6][7].czySciana = true;
+//      plansza[7][7].czySciana = true;
+//        //IX
+//      plansza[1][8].czySciana = true;
+//      plansza[2][8].czySciana = true;
+//      plansza[3][8].czySciana = true;
+//      plansza[4][8].czySciana = true;
+//      plansza[5][8].czySciana = true;
+//
+//    }
+//
+//    if(poziom == 3){
+//        plansza[0][0].czyGracz = true;
+//
+//        plansza[2][4].czyUstawione = true;
+//        plansza[2][5].czyUstawione = true;
+//
+//        plansza[2][2].czyMina = true;
+//        plansza[2][3].czyMina = true;
+//
+//        plansza[5][5].czySciana = true;
+//        plansza[5][6].czySciana = true;
+//    }

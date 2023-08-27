@@ -4,26 +4,33 @@
 
 #include "Plansza.h"
 
-int const W = 22;
-int const D = 3;
-int const S = 18;
-int const A = 0;
+int const W = 22; //TOP
+int const D = 3;  //RIGHT
+int const S = 18; //BOTTOM
+int const A = 0;  //LEFT
+int const R = 17; //RESET LEVEL
+int const P = 15; //LEVEL + 1
+int const O = 14; //LEVEL - 1
+int const Q = 16; //QUIT
+
 
 Plansza::Plansza() {
     width = 15;
     hight = 15;
 
-    wyczysc_Plansze();
-    ustaw_Plansze();
-
+    moveCounter = 0;
     poziom = 1;
+
+    wyczysc_Plansze();
+    ustaw_Plansze(poziom);
+
+
 }
 
-void Plansza::petla() {
-
-}
 
 void Plansza::wyczysc_Plansze() {
+
+    moveCounter = 0;
 
     for (int wiersz = 0; wiersz < hight; wiersz++) {
         for (int kolumna = 0; kolumna < width; kolumna++) {
@@ -40,17 +47,19 @@ void Plansza::wyczysc_Plansze() {
 char Plansza::get_Field_info(int row, int col) {
 
     {
-        if (plansza[row][col].czyGracz == true)
+        if (plansza[row][col].czyGracz == true) // PLAYER
             return 'Y';
-        if (plansza[row][col].czyMina == true and plansza[row][col].czyUstawione == false)
+        if (plansza[row][col].czyMina == true and plansza[row][col].czyUstawione == false) //BOX
             return 'X';
-        if (plansza[row][col].czySciana == true)
+        if (plansza[row][col].czyUstawione == true and plansza[row][col].czyMina == true) //BOX AT GOOD PLACE
+            return 'z';
+        if (plansza[row][col].czySciana == true) //WALL
             return '#';
-        if (plansza[row][col].czyOdkryte == false and plansza[row][col].czyUstawione == false and plansza[row][col].czyMina == false)
+        if (plansza[row][col].czyOdkryte == false and plansza[row][col].czyUstawione == false and plansza[row][col].czyMina == false) //EMPTY SPACE
             return '.';
-        if (plansza[row][col].czyUstawione == true and plansza[row][col].czyMina == false)
+        if (plansza[row][col].czyUstawione == true and plansza[row][col].czyMina == false) // EMPTY SPACE FOR BOX
             return '-';
-        if (plansza[row][col].czyUstawione == true and plansza[row][col].czyMina == true)
+        if (plansza[row][col].czyUstawione == true and plansza[row][col].czyMina == true) // PLACE FOR BOX
             return 'O';
 
         return ' ';
@@ -79,7 +88,7 @@ void Plansza::update(char move) {
         int playerRow = -1;
         int playerCol = -1;
 
-        // Znajdź pozycję gracza na planszy
+        //Search player on board
         for (int row = 0; row < hight; row++) {
             for (int col = 0; col < width; col++) {
                 if (plansza[row][col].czyGracz) {
@@ -88,58 +97,76 @@ void Plansza::update(char move) {
                     break;
                 }
             }
-            if (playerRow != -1) // Gracz znaleziony, opuść pętlę
+            if (playerRow != -1) //Player found, leave loop
                 break;
         }
-
-//        for(int roww=0; roww < hight; roww++)
-//            for(int coll=0; coll < width; coll++)
-//                plansza[roww][coll].czyGracz = false;
-//
-//        plansza[playerRow][playerCol].czyGracz = true;
 
         int newRow = playerRow;
         int newCol = playerCol;
 
-        // Wykonaj ruch gracza
+
+
+        //Make a player's move
         switch (move) {
             case W:
-                newRow = playerRow - 1;
+                if(playerRow - 1 < width and playerRow - 1 > 0){ //Checks if the player is off the board
+                    newRow = playerRow - 1;
+                    if(!plansza[newRow][playerCol].czySciana and !plansza[newRow-1][playerCol].czySciana and !plansza[newRow -1][playerCol].czyMina)
+                        moveCounter++;
+                }
                 break;
             case A:
-                newCol = playerCol - 1;
+                if(playerCol - 1 < hight and playerCol - 1 > 0){
+                    newCol = playerCol - 1;
+                        moveCounter++;
+                }
+
                 break;
             case S:
-                newRow = playerRow + 1;
+                if(playerRow + 1 < width and playerRow + 1 > 0){
+                    newRow = playerRow + 1;
+                        moveCounter++;
+                }
                 break;
             case D:
-                newCol = playerCol + 1;
+                if(playerCol + 1 < hight and playerCol + 1 > 0){
+                    newCol = playerCol + 1;
+                        moveCounter++;
+                }
                 break;
-//            case 'r': // Resetuje plansze do stanu poczatkowego
-//                ustaw_Plansze();
-//                return;
-//            case 'p':
-//                poziom++;
-//                cout <<poziom<<"ddddddddddddddddddd" << endl;
-//                return;
-//            case 'q':
-//                exit(0); // Wyjście z gry
+            case R: //Resets the board to its initial state
+                wyczysc_Plansze();
+                moveCounter = 0;
+                ustaw_Plansze(poziom);
+                return;
+            case P: //LEVEL + 1
+                poziom++;
+                ustaw_Plansze(poziom);
+                cout <<poziom<<"---LEVEL NUMBER---" << endl;
+                return;
+            case O: //LEVEL - 1
+                poziom--;
+                ustaw_Plansze(poziom);
+                cout <<poziom<<"---LEVEL NUMBER---" << endl;
+                return;
+            case Q:
+                exit(0); // Exit game
         }
 
-        //przesowa gracza, jesli nie ma przed nim miny
+        //Moves the player if there is no mine in front of him
         if (!plansza[newRow][newCol].czyMina) {
             plansza[playerRow][playerCol].czyGracz = false;
             plansza[newRow][newCol].czyGracz = true;
         }
 
-        //sprawdza czy gracz nie koliduje z sciana
+        //Checks if the player collides with a wall
         if (plansza[newRow][newCol].czySciana) {
             plansza[playerRow][playerCol].czyGracz = true;
             plansza[newRow][newCol].czyGracz = false;
         }
 
 
-        //przesowa mine, jesli nie ma przed nia sciany
+        //Moves mine if there is no wall in front of it
         if(plansza[newRow][newCol].czyMina){
             int newMineRow;
             int newMineCol;
@@ -193,102 +220,120 @@ void Plansza::update(char move) {
 
             }
 
-            //przesówa mine
+            //Moves mine
             plansza[newRow][newCol].czyMina = false;
             plansza[newMineRow][newMineCol].czyMina = true;
 
-            //przesówa gracza
+            //Moves the player
             plansza[playerRow][playerCol].czyGracz = false;
             plansza[newRow][newCol].czyGracz = true;
 
 
+
+
         }
 
+//        if(playerRow == newRow or playerCol == newCol)
+//            moveCounter++;
+
+        //checks if the boxes are in the right place
+        if(check_win()){
+            poziom++;
+            ustaw_Plansze(poziom);
+        }
 
         // Odśwież planszę
         //system("cls"); // Wyczyść ekran (Windows)
 
-
-
-
-
     }
 
-void Plansza::ustaw_Plansze() {
+bool Plansza::check_win() {
+    int boxCounter = 0;
+    int winBoxCounter = 0;
 
-
-//plansza[0][0].czyGracz = true;
-//
-//plansza[2][2].czyMina = true;
-//plansza[2][3].czyMina = true;
-//
-//plansza[5][5].czySciana = true;
-//plansza[5][6].czySciana = true;
-            cout <<poziom<<" costamss-ssssssss " <<endl;
-            plansza[7][1].czyGracz = true;
-
-            plansza[5][2].czyMina = true;
-            plansza[6][2].czyMina = true;
-            plansza[6][3].czyMina = true;
-
-            plansza[3][7].czyUstawione = true;
-            plansza[4][7].czyUstawione = true;
-            plansza[5][7].czyUstawione = true;
-//I
-            plansza[4][0].czySciana = true;
-            plansza[5][0].czySciana = true;
-            plansza[6][0].czySciana = true;
-            plansza[7][0].czySciana = true;
-            plansza[8][0].czySciana = true;
-//II
-            plansza[0][1].czySciana = true;
-            plansza[1][1].czySciana = true;
-            plansza[2][1].czySciana = true;
-            plansza[3][1].czySciana = true;
-            plansza[4][1].czySciana = true;
-            plansza[8][1].czySciana = true;
-//III
-            plansza[0][2].czySciana = true;
-            plansza[3][2].czySciana = true;
-            plansza[4][2].czySciana = true;
-            plansza[8][2].czySciana = true;
-//IV
-            plansza[0][3].czySciana = true;
-            plansza[8][3].czySciana = true;
-
-//V
-            plansza[0][4].czySciana = true;
-            plansza[4][4].czySciana = true;
-            plansza[5][4].czySciana = true;
-            plansza[6][4].czySciana = true;
-            plansza[7][4].czySciana = true;
-            plansza[8][4].czySciana = true;
-
-//VI
-            plansza[0][5].czySciana = true;
-            plansza[1][5].czySciana = true;
-            plansza[2][5].czySciana = true;
-            plansza[4][5].czySciana = true;
-
-            plansza[1][6].czySciana = true;
-            plansza[4][6].czySciana = true;
-            plansza[5][6].czySciana = true;
-            plansza[6][6].czySciana = true;
-
-            plansza[1][7].czySciana = true;
-            plansza[6][7].czySciana = true;
-
-            plansza[1][8].czySciana = true;
-            plansza[2][8].czySciana = true;
-            plansza[3][8].czySciana = true;
-            plansza[4][8].czySciana = true;
-            plansza[5][8].czySciana = true;
-            plansza[6][8].czySciana = true;
-
+    for(int row = 0; row < hight; row++)
+        for(int col = 0; col < width; col++){
+            if(plansza[row][col].czyMina)
+                boxCounter++;
+            if(get_Field_info(row,col) == 'z')
+                winBoxCounter++;
         }
 
+    if(winBoxCounter == boxCounter)
+        return true;
+
+    return false;
+}
+
+void Plansza::load_Map_File() {
+    // Nazwa pliku z mapą
 
 
+    //clear map of char's
+    map.clear();
+
+    string filename = "../Maps/map" + std::to_string(poziom) + ".txt";
+
+    // Otwórz plik do odczytu
+    ifstream file(filename);
+
+    if (!file.is_open()) {
+        cout << "Nie można otworzyć pliku." << endl;
+        exit(0);
+    }
+
+
+
+
+    // Odczytaj zawartość pliku wiersz po wierszu
+    string line;
+    while (getline(file, line)) {
+        vector<char> row;
+        for (char c : line) {
+            if (c != ' ') {
+                row.push_back(c);
+            }
+        }
+        map.push_back(row);
+    }
+
+    // Zamknij plik
+    file.close();
+}
+
+
+void Plansza::przepisz_Mape_Do_Planszy(){
+    for (size_t i = 0; i < map.size(); ++i) {
+        for (size_t j = 0; j < map[i].size(); ++j) {
+            Pole pole;
+            char c = map[i][j];
+
+            //pole.czyOdkryte = (c == '.');
+            pole.czyGracz = (c == 'Y');
+            pole.czyMina = (c == 'X');
+            pole.czySciana = (c == '#');
+            pole.czyUstawione = (c == '-');
+
+            plansza[i][j] = pole;
+        }
+    }
+}
+
+void Plansza::ustaw_Plansze(int poziom) {
+
+    wyczysc_Plansze();
+    load_Map_File();
+    przepisz_Mape_Do_Planszy();
+
+}
+
+int Plansza::getPoziom() {
+    return poziom;
+}
+
+int Plansza::getMoveCounter() {
+    return moveCounter;
+}
 
 
 

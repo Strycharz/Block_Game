@@ -35,13 +35,17 @@ vector<vector<sf::Sprite>> sprites;
 array<sf::Texture, 12> textures;
 
     sf::RectangleShape Tablica[15][15];
+    sf::Font font;
+    sf::Text text;
+    sf::Text text2;
+    sf::Text timerText;
 public:
 
     sfmlView(Plansza & b);
 
     void widok();
 
-    void update();
+
 
     char check_Input(int move);
 

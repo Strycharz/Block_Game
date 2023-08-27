@@ -7,7 +7,10 @@
 
 
 #include <iostream>
-#include <conio.h> // Dodane do obslugi funkcji getch() w systemie Windows
+#include <conio.h> //Added to getch() support on Windows
+#include <vector>
+#include <fstream>
+
 using namespace std;
 
 struct Pole {
@@ -24,14 +27,21 @@ class Plansza {
    int hight;
 
    int poziom;
+    Pole plansza[15][15];
 
-    Pole  plansza[15][15];
+    //Vector storing the map
+    vector<vector<char>> map;
+
+    int moveCounter;
+
 
 public:
     Plansza();
 
     void wyczysc_Plansze();
-    void ustaw_Plansze();
+    void ustaw_Plansze(int poziom);
+
+    bool check_win();
 
 
     void debug_display();
@@ -39,7 +49,13 @@ public:
 
     char get_Field_info( int row, int col);
 
-    void petla();
+    void load_Map_File();
+
+
+    int getPoziom();
+    int getMoveCounter();
+
+    void przepisz_Mape_Do_Planszy();
 };
 
 
