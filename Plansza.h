@@ -39,24 +39,36 @@ public:
     Plansza();
 
     void wyczysc_Plansze();
-    void ustaw_Plansze(int poziom);
+    void ustaw_Plansze();
+
+    void load_Map_File();
+    void przepisz_Mape_Do_Planszy();
 
     bool check_win();
 
 
     void debug_display();
     void update(char move);
-
     char get_Field_info( int row, int col);
 
-    void load_Map_File();
 
+
+    void setPoziom(int p);
+
+    void setGracz(int row,int col, bool g);
+    void setMina(int row,int col,bool m);
+    void setSciana(int row,int col,bool s);
+    void setUstawione(int row,int col,bool u);
 
     int getPoziom();
     int getMoveCounter();
 
-    void przepisz_Mape_Do_Planszy();
+    bool getGracz(int row, int col);
+    bool getMina(int row, int col);
+    bool getSciana(int row, int col);
+    bool getUstawione(int row, int col);
+
 };
 
 
-#endif //GIERKASFML_PLANSZA_H
+#endif

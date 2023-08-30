@@ -12,6 +12,8 @@ int const R = 17; //RESET LEVEL
 int const P = 15; //LEVEL + 1
 int const O = 14; //LEVEL - 1
 int const Q = 16; //QUIT
+int const N = 13; //QUIT
+
 
 
 Plansza::Plansza() {
@@ -19,12 +21,8 @@ Plansza::Plansza() {
     hight = 15;
 
     moveCounter = 0;
-    poziom = 1;
 
     wyczysc_Plansze();
-    ustaw_Plansze(poziom);
-
-
 }
 
 
@@ -101,6 +99,9 @@ void Plansza::update(char move) {
                 break;
         }
 
+        int a = playerRow;
+        int b = playerCol;
+
         int newRow = playerRow;
         int newCol = playerCol;
 
@@ -111,44 +112,48 @@ void Plansza::update(char move) {
             case W:
                 if(playerRow - 1 < width and playerRow - 1 > 0){ //Checks if the player is off the board
                     newRow = playerRow - 1;
-                    if(!plansza[newRow][playerCol].czySciana and !plansza[newRow-1][playerCol].czySciana and !plansza[newRow -1][playerCol].czyMina)
-                        moveCounter++;
+//                        moveCounter++;
                 }
                 break;
             case A:
                 if(playerCol - 1 < hight and playerCol - 1 > 0){
                     newCol = playerCol - 1;
-                        moveCounter++;
+//                        moveCounter++;
                 }
 
                 break;
             case S:
                 if(playerRow + 1 < width and playerRow + 1 > 0){
                     newRow = playerRow + 1;
-                        moveCounter++;
+//                        moveCounter++;
                 }
                 break;
             case D:
                 if(playerCol + 1 < hight and playerCol + 1 > 0){
                     newCol = playerCol + 1;
-                        moveCounter++;
+//                        moveCounter++;
                 }
                 break;
             case R: //Resets the board to its initial state
                 wyczysc_Plansze();
                 moveCounter = 0;
-                ustaw_Plansze(poziom);
+                ustaw_Plansze();
                 return;
             case P: //LEVEL + 1
                 poziom++;
-                ustaw_Plansze(poziom);
+                ustaw_Plansze();
                 cout <<poziom<<"---LEVEL NUMBER---" << endl;
                 return;
             case O: //LEVEL - 1
                 poziom--;
-                ustaw_Plansze(poziom);
-                cout <<poziom<<"---LEVEL NUMBER---" << endl;
+                ustaw_Plansze();
+                cout <<"---LEVEL NUMBER---"<< poziom << endl;
                 return;
+            case N:
+                wyczysc_Plansze();
+                moveCounter = 0;
+                ustaw_Plansze();
+                break;
             case Q:
                 exit(0); // Exit game
         }
@@ -157,6 +162,7 @@ void Plansza::update(char move) {
         if (!plansza[newRow][newCol].czyMina) {
             plansza[playerRow][playerCol].czyGracz = false;
             plansza[newRow][newCol].czyGracz = true;
+            //moveCounter++;
         }
 
         //Checks if the player collides with a wall
@@ -166,7 +172,7 @@ void Plansza::update(char move) {
         }
 
 
-        //Moves mine if there is no wall in front of it
+        //Moves mine if there is no wall and mine in front of it
         if(plansza[newRow][newCol].czyMina){
             int newMineRow;
             int newMineCol;
@@ -229,21 +235,17 @@ void Plansza::update(char move) {
             plansza[newRow][newCol].czyGracz = true;
 
 
-
-
         }
 
-//        if(playerRow == newRow or playerCol == newCol)
-//            moveCounter++;
+
+
 
         //checks if the boxes are in the right place
         if(check_win()){
             poziom++;
-            ustaw_Plansze(poziom);
+            ustaw_Plansze();
         }
 
-        // Odśwież planszę
-        //system("cls"); // Wyczyść ekran (Windows)
 
     }
 
@@ -266,12 +268,11 @@ bool Plansza::check_win() {
 }
 
 void Plansza::load_Map_File() {
-    // Nazwa pliku z mapą
-
 
     //clear map of char's
     map.clear();
 
+    // Nazwa pliku z mapą
     string filename = "../Maps/map" + std::to_string(poziom) + ".txt";
 
     // Otwórz plik do odczytu
@@ -281,9 +282,6 @@ void Plansza::load_Map_File() {
         cout << "Nie można otworzyć pliku." << endl;
         exit(0);
     }
-
-
-
 
     // Odczytaj zawartość pliku wiersz po wierszu
     string line;
@@ -319,7 +317,7 @@ void Plansza::przepisz_Mape_Do_Planszy(){
     }
 }
 
-void Plansza::ustaw_Plansze(int poziom) {
+void Plansza::ustaw_Plansze() {
 
     wyczysc_Plansze();
     load_Map_File();
@@ -335,6 +333,38 @@ int Plansza::getMoveCounter() {
     return moveCounter;
 }
 
+void Plansza::setPoziom(int p) {
+    poziom = p;
+}
 
+void Plansza::setGracz(int row,int col, bool g) {
+    plansza[row][col].czyGracz = g;
+}
 
+void Plansza::setSciana(int row, int col, bool s) {
+    plansza[row][col].czySciana = s;
+}
 
+void Plansza::setMina(int row, int col, bool m) {
+    plansza[row][col].czyMina = m;
+}
+
+void Plansza::setUstawione(int row, int col, bool u) {
+    plansza[row][col].czyUstawione = u;
+}
+
+bool Plansza::getGracz(int row, int col) {
+    return plansza[row][col].czyGracz;
+}
+
+bool Plansza::getMina(int row, int col) {
+    return plansza[row][col].czyMina;
+}
+
+bool Plansza::getSciana(int row, int col) {
+    return plansza[row][col].czySciana;
+}
+
+bool Plansza::getUstawione(int row, int col) {
+    return plansza[row][col].czyUstawione;
+}

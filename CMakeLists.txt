@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
-# Proszę zmienić wymaganą wersję CMake na niższą - wystarczy 3.11
+# Proszę zmienić wymaganą wersję CMake na niższą - wystarczy 3.17
 
 project(GierkaSFML)
 
@@ -35,5 +35,5 @@ endif(WIN32)
 
 find_package(SFML 2 COMPONENTS graphics audio REQUIRED)
 
-add_executable(GierkaSFML main.cpp Plansza.cpp Plansza.h sfmlView.cpp sfmlView.h)
+add_executable(GierkaSFML main.cpp Plansza.cpp Plansza.h sfmlView.cpp sfmlView.h LevelCreator.cpp LevelCreator.h Menu.cpp Menu.h Clock.cpp Clock.h)
 target_link_libraries(GierkaSFML sfml-graphics sfml-audio)
