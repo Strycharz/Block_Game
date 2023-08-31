@@ -20,4 +20,5 @@ Controls in the level creator
 - **X**: Place a box (block).
 - **C**: Place a target spot for a crate.
 - **V**: Place the player character.
+- **M**: Save map to file.
 - **N**: Return to the main menu.
