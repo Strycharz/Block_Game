@@ -16,13 +16,13 @@ void BoardManager::active_board() {
     }
 
     //Resize the sprites vector to match the board dimensions
-    sprites.resize(hight);
-    for (int i = 0; i < hight; i++) {
+    sprites.resize(height);
+    for (int i = 0; i < height; i++) {
         sprites[i].resize(width);
     }
 
     // Set sprite positions based on board layout
-    for (int row = 0; row < hight; row++) {
+    for (int row = 0; row < height; row++) {
         for (int col = 0; col < width; col++) {
             int x, y;
             x = 50 + 20 * col;

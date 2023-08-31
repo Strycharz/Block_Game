@@ -17,7 +17,7 @@
 class BoardManager {
 
     int width = 15;
-    int hight = 15;
+    int height = 15;
     Board &obj_board1;
     GameManager &obj_gameManager;
     sf::Font font;

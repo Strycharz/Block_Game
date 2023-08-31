@@ -18,7 +18,7 @@ int const N = 13; //QUIT
 
 Board::Board() {
     width = 15;
-    hight = 15;
+    height = 15;
 
     moveCounter = 0;
 
@@ -30,13 +30,13 @@ void Board::clear_Board() {
 
     moveCounter = 0;
 
-    for (int wiersz = 0; wiersz < hight; wiersz++) {
-        for (int kolumna = 0; kolumna < width; kolumna++) {
-            board[wiersz][kolumna].isUncovered = false;
-            board[wiersz][kolumna].isPlayer = false;
-            board[wiersz][kolumna].isBox = false;
-            board[wiersz][kolumna].isWall = false;
-            board[wiersz][kolumna].isPlace = false;
+    for (int row = 0; row < height; row++) {
+        for (int col = 0; col < width; col++) {
+            board[row][col].isUncovered = false;
+            board[row][col].isPlayer = false;
+            board[row][col].isBox = false;
+            board[row][col].isWall = false;
+            board[row][col].isPlace = false;
         }
     }
 
@@ -67,7 +67,7 @@ char Board::get_Field_info(int row, int col) {
 
 
 void Board::debug_display(){
-    for (int row = 0; row < hight; row++) {
+    for (int row = 0; row < height; row++) {
         for (int col = 0; col < width; col++) {
             cout << get_Field_info(row, col) << " ";
         }
@@ -79,15 +79,11 @@ void Board::debug_display(){
 
 void Board::update(char move) {
 
-
-        //cout << "W, A, S, D - ruch, R - reset planszy, Q - wyjscie, : ";
-        //move = cin.get(); // Używamy
-
         int playerRow = -1;
         int playerCol = -1;
 
         //Search player on board
-        for (int row = 0; row < hight; row++) {
+        for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 if (board[row][col].isPlayer) {
                     playerRow = row;
@@ -114,7 +110,7 @@ void Board::update(char move) {
                 }
                 break;
             case A:
-                if(playerCol - 1 < hight and playerCol - 1 > 0){
+                if(playerCol - 1 < height and playerCol - 1 > 0){
                     newCol = playerCol - 1;
 //                        moveCounter++;
                 }
@@ -127,7 +123,7 @@ void Board::update(char move) {
                 }
                 break;
             case D:
-                if(playerCol + 1 < hight and playerCol + 1 > 0){
+                if(playerCol + 1 < height and playerCol + 1 > 0){
                     newCol = playerCol + 1;
 //                        moveCounter++;
                 }

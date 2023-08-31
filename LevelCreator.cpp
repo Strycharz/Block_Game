@@ -92,7 +92,7 @@ void LevelCreator::save_to_file() {
         return;
     }
 
-    for (int row = 0; row < hight; row++) {
+    for (int row = 0; row < height; row++) {
         for (int col = 0; col < width; col++) {
             if (obj_b1.getWall(row,col)) {
                 plik << "# ";

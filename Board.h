@@ -24,7 +24,7 @@ struct Field {
 
 class Board {
    int width;
-   int hight;
+   int height;
 
 
     Field board[15][15];

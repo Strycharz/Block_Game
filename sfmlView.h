@@ -29,7 +29,7 @@ using namespace std;
 
 class sfmlView {
     int width;
-    int hight;
+    int height;
 
     Menu &obj_menu1;
 
@@ -41,7 +41,7 @@ class sfmlView {
 
     EventUpdate &obj_eventUp1;
 
-    GameManager &obj_gameMenager;
+    GameManager &obj_gameManager;
 
 
 

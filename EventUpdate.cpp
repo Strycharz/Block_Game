@@ -162,7 +162,7 @@ void EventUpdate::level_creator_update(sf::Event event, sf::RenderWindow &win,bo
 
         int col = (mousePosition.x - 50) / 20;
         int row = (mousePosition.y - 50) / 20;
-        if (col >= 0 && col < width && row >= 0 && row < hight)
+        if (col >= 0 && col < width && row >= 0 && row < height)
             switch(choice){
                 case 'Z': //WALL
                     obj_board1.setWall(row,col, true);

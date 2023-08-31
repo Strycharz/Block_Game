@@ -12,9 +12,9 @@ enum STATUS {
     MENU
 };
 
-sfmlView::sfmlView(Menu & m, Board & b, Clock & c, LevelCreator & l, BoardManager & bm, EventUpdate & ev, GameManager & gm): obj_menu1(m), obj_board1(b), obj_bm1(bm), obj_clock(c), obj_lvlCr1(l), obj_eventUp1(ev), obj_gameMenager(gm){
+sfmlView::sfmlView(Menu & m, Board & b, Clock & c, LevelCreator & l, BoardManager & bm, EventUpdate & ev, GameManager & gm): obj_menu1(m), obj_board1(b), obj_bm1(bm), obj_clock(c), obj_lvlCr1(l), obj_eventUp1(ev), obj_gameManager(gm){
     width = 15;
-    hight = 15;
+    height = 15;
 
     view();
 }
@@ -37,7 +37,7 @@ void sfmlView::view() {
                 window.close();
 
             //Handle different game states
-            switch(obj_gameMenager.getGameStatus()){
+            switch(obj_gameManager.getGameStatus()){
                 case PLAY:
                     obj_eventUp1.gameplay_update(event,flag);
                     break;
@@ -56,18 +56,18 @@ void sfmlView::view() {
         //CLEAR DRAW DISPLAY - LOOP
         window.clear();
 
-        if(obj_gameMenager.getGameStatus() == PLAY){
+        if(obj_gameManager.getGameStatus() == PLAY){
             draw_Board(window);
             draw_Text_Board(window);
             draw_Text_Clock(window);
         }
 
-        if(obj_gameMenager.getGameStatus() == LEVELCREATOR){
+        if(obj_gameManager.getGameStatus() == LEVELCREATOR){
             draw_Board(window);
             draw_Text_Creator(window);
         }
 
-        if(obj_gameMenager.getGameStatus() == MENU)
+        if(obj_gameManager.getGameStatus() == MENU)
             draw_Text_menu(window);
 
         window.display();
@@ -85,10 +85,10 @@ void sfmlView::draw_Text_menu(sf::RenderWindow &win) {
 void sfmlView::draw_Board(sf::RenderWindow &win){
 
     //Drawing a board
-    for (int wiersz = 0; wiersz < hight; wiersz++){
-        for (int kolumna = 0; kolumna < width; kolumna++){
-            obj_bm1.field_update(wiersz,kolumna);
-           win.draw(obj_bm1.getSprite()[wiersz][kolumna]);
+    for (int row = 0; row < height; row++){
+        for (int col = 0; col < width; col++){
+            obj_bm1.field_update(row,col);
+           win.draw(obj_bm1.getSprite()[row][col]);
 
         }
     }

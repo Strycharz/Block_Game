@@ -16,7 +16,7 @@
 #include "Board.h"
 
 int const width = 15;
-int const hight = 15;
+int const height = 15;
 
 class LevelCreator {
 
