@@ -35,5 +35,5 @@ endif(WIN32)
 
 find_package(SFML 2 COMPONENTS graphics audio REQUIRED)
 
-add_executable(GierkaSFML main.cpp Plansza.cpp Plansza.h sfmlView.cpp sfmlView.h LevelCreator.cpp LevelCreator.h Menu.cpp Menu.h Clock.cpp Clock.h)
+add_executable(GierkaSFML main.cpp Board.cpp Board.h sfmlView.cpp sfmlView.h LevelCreator.cpp LevelCreator.h Menu.cpp Menu.h Clock.cpp Clock.h BoardManager.cpp BoardManager.h EventUpdate.cpp EventUpdate.h GameManager.cpp GameManager.h)
 target_link_libraries(GierkaSFML sfml-graphics sfml-audio)

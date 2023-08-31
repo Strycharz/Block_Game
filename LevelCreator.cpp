@@ -4,9 +4,9 @@
 
 #include "LevelCreator.h"
 
-//sfmlView::sfmlView(Plansza & b): obj_board1(b){
 
-LevelCreator::LevelCreator(Plansza & b): obj_b1(b){
+
+LevelCreator::LevelCreator(Board & b): obj_b1(b){
    active_text();
 }
 
@@ -88,20 +88,20 @@ void LevelCreator::save_to_file() {
     std::ofstream plik("../Maps/map" + to_string(count_map_file()) + ".txt", std::ios::out | std::ios::trunc);
 
     if (!plik.is_open()) {
-        std::cerr << "Nie udało się otworzyć pliku do zapisu." << std::endl;
+        std::cerr << "Failed to open file for writing." << std::endl;
         return;
     }
 
     for (int row = 0; row < hight; row++) {
         for (int col = 0; col < width; col++) {
-            if (obj_b1.getSciana(row,col)) {
+            if (obj_b1.getWall(row,col)) {
                 plik << "# ";
             } else {
-                if (obj_b1.getMina(row,col)) {
+                if (obj_b1.getBox(row,col)) {
                     plik << "X ";
-                } else if (obj_b1.getGracz(row,col)) {
+                } else if (obj_b1.getPlayer(row,col)) {
                     plik << "Y ";
-                } else if (obj_b1.getUstawione(row,col)) {
+                } else if (obj_b1.getPlace(row,col)) {
                     plik << "- ";
                 } else {
                     plik << ". ";
@@ -112,6 +112,6 @@ void LevelCreator::save_to_file() {
     }
 
     plik.close();
-    std::cout << "Plansza zapisana do pliku." << std::endl;
+    std::cout << "The board was successfully saved to the file." << std::endl;
     obj_b1.debug_display();
 }

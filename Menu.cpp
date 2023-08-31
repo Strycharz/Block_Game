@@ -6,7 +6,6 @@
 
 Menu::Menu() {
     active_text();
-    gameStatus = 4;
 }
 
 void Menu::active_text() {
@@ -42,10 +41,3 @@ sf::Text Menu::getText(int i) {
     return textMenu[i];
 }
 
-int Menu::getGameStatus() {
-    return gameStatus;
-}
-
-void Menu::setGameStatus(int gs) {
-    gameStatus = gs;
-}

@@ -17,7 +17,7 @@ class Menu {
     sf::Text textMenu[3];
     sf::Font font;
 
-    int gameStatus;
+
 
 public:
     Menu();
@@ -26,8 +26,7 @@ public:
 
     sf::Text getText(int i);
 
-    int getGameStatus();
-    void setGameStatus(int gs);
+
 
 };
 

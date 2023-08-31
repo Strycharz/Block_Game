@@ -13,28 +13,27 @@
 #include <cstring>
 #include <dirent.h>
 
-#include "Plansza.h"
+#include "Board.h"
 
 int const width = 15;
 int const hight = 15;
 
 class LevelCreator {
-//    //Vector storing the map
-//    vector<vector<char>> map;
 
-    Plansza &obj_b1;
+
+    Board &obj_b1;
 
     sf::Text textCreator[6];
     sf::Font font;
 
 public:
-    LevelCreator(Plansza & b);
+    LevelCreator(Board & b);
 
     void active_text();
     sf::Text getText(int i);
 
     void save_to_file();
-    int count_map_file();
+    static int count_map_file();
 };
 
 
