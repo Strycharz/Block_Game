@@ -13,11 +13,11 @@ Block Game is a puzzle game where the player needs to push blocks onto designate
 
 Controls
 W, A, S, D: Move the character in the up, left, down, and right directions, respectively.
-N -> Return to the main menu.
+- **N**  Return to the main menu.
 
 Controls in the level creator
-Z -> Place a wall.
-X -> Place a box (block).
-C -> Place a target spot for a crate.
-V -> Place the player character.
-N -> Return to the main menu.
+- **Z**: Place a wall.
+- **X**: Place a box (block).
+- **C**: Place a target spot for a crate.
+- **V**: Place the player character.
+- **N**: Return to the main menu.
